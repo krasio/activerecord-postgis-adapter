@@ -44,6 +44,10 @@ module ActiveRecord
 
 
       class SpatialTableDefinition < ConnectionAdapters::TableDefinition
+        def tsvector(*args)
+          options = args.extract_options!
+          column(args[0], 'tsvector', options)
+        end
 
         def column(name_, type_, options_={})
           if (info_ = @base.spatial_column_constructor(type_.to_sym))
